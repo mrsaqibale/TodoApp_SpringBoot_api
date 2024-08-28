@@ -1,5 +1,5 @@
 package com.todo.repository;
 
-public class UserRepo {
+public interface UserRepo {
 
 }
