@@ -1,5 +1,9 @@
 package com.todo.repository;
 
-public interface UserRepo {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.todo.entites.User;
+
+public interface UserRepo extends JpaRepository<User, Long> {
 
 }
