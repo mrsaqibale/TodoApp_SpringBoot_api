@@ -5,12 +5,14 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.todo.Service.UserServ;
 import com.todo.dto.UserDto;
 import com.todo.entites.User;
 import com.todo.repository.UserRepo;
 
+@Service
 public class UserServImp implements UserServ{
 
     @Autowired
@@ -50,8 +52,8 @@ public class UserServImp implements UserServ{
 
     @Override
     public UserDto getUserById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getUserById'");
+        User user = this.userRepo.findActiveById(id);
+        return this.modelMapper.map(user,UserDto.class);
     }
 
     @Override
