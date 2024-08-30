@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.todo.Service.UserServ;
 import com.todo.dto.UserDto;
 import com.todo.entites.User;
+import com.todo.exceptions.ResourceNotFoundException;
 import com.todo.repository.UserRepo;
 
 @Service
@@ -50,10 +51,15 @@ public class UserServImp implements UserServ{
         throw new UnsupportedOperationException("Unimplemented method 'getAllUsers'");
     }
 
+    // find user by id only active user
     @Override
     public UserDto getUserById(Long id) {
-        User user = this.userRepo.findActiveById(id);
-        return this.modelMapper.map(user,UserDto.class);
+        try {            
+            User user = this.userRepo.findActiveById(id);
+            return this.modelMapper.map(user,UserDto.class);
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("User", "id", id);
+        }
     }
 
     @Override
