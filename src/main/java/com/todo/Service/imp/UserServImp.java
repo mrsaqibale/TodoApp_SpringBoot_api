@@ -66,10 +66,11 @@ public class UserServImp implements UserServ{
     }
 
     @Override
-    public void UserDelete(Long id) {
+    public User deleteUser(Long id) {
         try {            
             User user = this.userRepo.findActiveById(id);
             user.setDeleted(true);
+            return this.userRepo.save(user);
         } catch (Exception e) {
             throw new ResourceNotFoundException("User", "id", id);
         }

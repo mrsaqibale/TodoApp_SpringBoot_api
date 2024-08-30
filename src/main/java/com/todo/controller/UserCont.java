@@ -2,6 +2,8 @@ package com.todo.controller;
 
 import java.util.List;
 
+import javax.net.ssl.HttpsURLConnection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.todo.Service.UserServ;
 import com.todo.dto.UserDto;
+import com.todo.entites.User;
+import com.todo.payload.DeleteResponse;
 
 @RestController
 @RequestMapping("/api")
@@ -47,7 +51,9 @@ public class UserCont {
     // soft delete by only admin 
     @DeleteMapping("/user/{id}")
     public ResponseEntity<DeleteResponse> deleteUser(@PathVariable Long id){
-
+        User user = this.userServ.deleteUser(id);
+        DeleteResponse dr = new DeleteResponse(true, user.getUsername());
+        return new ResponseEntity<DeleteResponse>(dr, HttpStatus.OK); 
     }
 
 }

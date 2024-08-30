@@ -3,6 +3,7 @@ package com.todo.Service;
 import java.util.List;
 
 import com.todo.dto.UserDto;
+import com.todo.entites.User;
 
 public interface UserServ {
 
@@ -19,7 +20,7 @@ public interface UserServ {
     UserDto getUserById(Long id);
 
     // soft del user 
-    void UserDelete(Long id);
+    User deleteUser(Long id);
 
     // register user 
 
