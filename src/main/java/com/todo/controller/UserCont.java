@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,7 +21,6 @@ import com.todo.Service.UserServ;
 import com.todo.dto.UserDto;
 import com.todo.entites.User;
 import com.todo.payload.DeleteResponse;
-import com.todo.payload.UserImageResponse;
 
 @RestController
 @RequestMapping("/api")
@@ -40,13 +38,18 @@ public class UserCont {
 
     // get user by id only active for admin only
     @GetMapping("/user/{id}")
-    public ResponseEntity<UserImageResponse> getUserById(@PathVariable Long id){
+    public ResponseEntity<UserDto> getUserById(@PathVariable Long id){
+        UserDto userDto = this.userServ.getUserById(id);
+        userDto.setImageData(null);
+        return ResponseEntity.ok(userDto);
+    }
+
+    // get user by id only active for admin only
+    @GetMapping("/user/image/{id}")
+    public ResponseEntity<byte[]> getUserImgById(@PathVariable Long id){
         UserDto userDto = this.userServ.getUserById(id);
         byte[] img = userDto.getImageData();
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.valueOf(userDto.getImageType()));
-        // return ResponseEntity.ok().contentType(MediaType.valueOf(userDto.getImageType())).body(img);
-        return new ResponseEntity<UserImageResponse>(new UserImageResponse(userDto, img),headers, HttpStatus.FOUND);
+        return ResponseEntity.ok().contentType(MediaType.valueOf(userDto.getImageType())).body(img);
     }
 
     // get all users only active for admin only
