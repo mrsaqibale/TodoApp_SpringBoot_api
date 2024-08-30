@@ -33,6 +33,8 @@ public class User {
 
     @Column(length = 1000)
     private String profilePicture;
+
+    private String name ;
     
     private String role;
 
