@@ -2,6 +2,7 @@ package com.todo.Service.imp;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,10 +46,12 @@ public class UserServImp implements UserServ{
         throw new UnsupportedOperationException("Unimplemented method 'updateUser'");
     }
 
+    // find all users only active for admin only
     @Override
     public List<UserDto> getAllUsers() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAllUsers'");
+            List<User> users = this.userRepo.findActiveUsers();
+            List<UserDto> userDtos = users.stream().map((user) -> this.modelMapper.map(user, UserDto.class)).collect(Collectors.toList());
+            return userDtos;
     }
 
     // find user by id only active user

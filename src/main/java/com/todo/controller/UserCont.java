@@ -1,5 +1,7 @@
 package com.todo.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,4 +35,11 @@ public class UserCont {
         UserDto userDto = this.userServ.getUserById(id);
         return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
+
+        // get all users only active for admin only
+        @GetMapping("/user")
+        public ResponseEntity<List<UserDto>> getUsers(){
+            List<UserDto> userDtos = this.userServ.getAllUsers();
+            return new ResponseEntity<>(userDtos, HttpStatus.FOUND);
+        }
 }
