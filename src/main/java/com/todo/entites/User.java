@@ -1,7 +1,13 @@
 package com.todo.entites;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,7 +22,7 @@ import lombok.Setter;
 @Entity
 @Setter
 @Getter
-public class User {
+public class User implements UserDetails{
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,8 +48,6 @@ public class User {
     
     private String role;
 
-    
-
     @Column(updatable = false)
     private LocalDateTime createdAt ;
 
@@ -57,4 +61,39 @@ public class User {
     
     @OneToMany(mappedBy = "user")
     private List<Todo> todo;
+
+
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.singleton(new SimpleGrantedAuthority(this.role));
+    }
+
+
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return this.isLocked;
+    }
+
+
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
