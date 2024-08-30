@@ -2,7 +2,6 @@ package com.todo.controller;
 
 import java.util.List;
 
-import javax.net.ssl.HttpsURLConnection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,6 +22,7 @@ import com.todo.Service.UserServ;
 import com.todo.dto.UserDto;
 import com.todo.entites.User;
 import com.todo.payload.DeleteResponse;
+import com.todo.payload.UserImageResponse;
 
 @RestController
 @RequestMapping("/api")
@@ -40,11 +40,13 @@ public class UserCont {
 
     // get user by id only active for admin only
     @GetMapping("/user/{id}")
-    public ResponseEntity<byte[]> getUserById(@PathVariable Long id){
+    public ResponseEntity<UserImageResponse> getUserById(@PathVariable Long id){
         UserDto userDto = this.userServ.getUserById(id);
         byte[] img = userDto.getImageData();
-        return ResponseEntity.ok().contentType(MediaType.valueOf(userDto.getImageType())).body(img);
-        // return new ResponseEntity<>(userDto, HttpStatus.OK);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.valueOf(userDto.getImageType()));
+        // return ResponseEntity.ok().contentType(MediaType.valueOf(userDto.getImageType())).body(img);
+        return new ResponseEntity<UserImageResponse>(new UserImageResponse(userDto, img),headers, HttpStatus.FOUND);
     }
 
     // get all users only active for admin only

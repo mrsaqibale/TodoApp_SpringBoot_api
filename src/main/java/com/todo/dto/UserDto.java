@@ -2,7 +2,6 @@ package com.todo.dto;
 
 import java.time.LocalDateTime;
 
-import jakarta.persistence.Lob;
 import lombok.Getter;
 import lombok.Setter;
 

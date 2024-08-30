@@ -1,6 +1,7 @@
 package com.todo.payload;
 
-import com.todo.entites.User;
+
+import com.todo.dto.UserDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,11 +10,11 @@ import lombok.Setter;
 
 @Setter
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class UserImageResponse {
 
-    private User user;
+    private UserDto user;
     private byte[] bytes;
     
 }
