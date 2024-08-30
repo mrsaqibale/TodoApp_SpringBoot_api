@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,15 +29,20 @@ public class User {
     private String email;
 
     private String password;
-
     private String phoneNumber;
 
     @Column(length = 1000)
-    private String profilePicture;
+    private String imageName;
+    private String imageType;
+    @Lob
+    @Column(length = 314578)
+    private byte[] imageData;
 
     private String name ;
     
     private String role;
+
+    
 
     @Column(updatable = false)
     private LocalDateTime createdAt ;

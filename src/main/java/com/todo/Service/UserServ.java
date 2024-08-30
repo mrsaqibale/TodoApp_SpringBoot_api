@@ -2,6 +2,8 @@ package com.todo.Service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.todo.dto.UserDto;
 import com.todo.entites.User;
 
@@ -21,6 +23,8 @@ public interface UserServ {
 
     // soft del user 
     User deleteUser(Long id);
+
+    void uploadImage(MultipartFile file);
 
     // register user 
 

@@ -2,6 +2,7 @@ package com.todo.dto;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Lob;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +14,9 @@ public class UserDto {
 
     private String phoneNumber;
 
-    private String profilePicture;
+    private String imageName;
+    private String imageType;
+    private byte[] imageData;
     
     private String role;
 

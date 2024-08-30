@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.todo.Service.UserServ;
 import com.todo.dto.UserDto;
@@ -35,7 +36,7 @@ public class UserServImp implements UserServ{
         user.setDeleted(false);
         user.setLocked(false);
         user.setLoginCount(0);
-        user.setProfilePicture("default.png");
+        // user.setProfilePicture("default.png");
         User user2 = this.userRepo.save(user);
         return this.modelMapper.map(user2, UserDto.class);
     }
@@ -73,6 +74,22 @@ public class UserServImp implements UserServ{
             return this.userRepo.save(user);
         } catch (Exception e) {
             throw new ResourceNotFoundException("User", "id", id);
+        }
+    }
+
+    @Override
+    public void uploadImage(MultipartFile file) {
+        try {            
+            Long id = (long) 2;
+            System.out.println(file.getName());
+            System.out.println(file.getContentType());
+            User user = this.userRepo.findActiveById(id);
+            user.setImageType(file.getContentType());
+            user.setImageName(file.getName());
+            user.setImageData(file.getBytes());
+            this.userRepo.save(user);
+        } catch (Exception e) {
+            throw new ResourceNotFoundException(null, null);
         }
     }
 
