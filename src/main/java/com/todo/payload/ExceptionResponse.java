@@ -15,7 +15,7 @@ public class ExceptionResponse {
 
     private boolean flag;
 
-    private Long statusCode; 
+    private int statusCode; 
 
 
     
