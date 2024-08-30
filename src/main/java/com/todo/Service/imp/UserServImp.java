@@ -67,8 +67,12 @@ public class UserServImp implements UserServ{
 
     @Override
     public void UserDelete(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'UserDelete'");
+        try {            
+            User user = this.userRepo.findActiveById(id);
+            user.setDeleted(true);
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("User", "id", id);
+        }
     }
 
 }
