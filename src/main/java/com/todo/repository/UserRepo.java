@@ -17,4 +17,8 @@ public interface UserRepo extends JpaRepository<User, Long> {
     // find user by id
     @Query("SELECT u FROM User u WHERE u.id = :id AND u.isDeleted = false AND u.isLocked = false")
     User findActiveById(@Param("id") Long id);
+
+    // find user by username for custom user detail servise
+    @Query("SELECT u FROM User u WHERE u.username = :username AND u.isDeleted =false AND u.isLocked = false")
+    User findActiveByUsername(@Param("username") String username);
 }
