@@ -6,6 +6,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,9 +40,11 @@ public class UserCont {
 
     // get user by id only active for admin only
     @GetMapping("/user/{id}")
-    public ResponseEntity<UserDto> getUserById(@PathVariable Long id){
+    public ResponseEntity<byte[]> getUserById(@PathVariable Long id){
         UserDto userDto = this.userServ.getUserById(id);
-        return new ResponseEntity<>(userDto, HttpStatus.OK);
+        byte[] img = userDto.getImageData();
+        return ResponseEntity.ok().contentType(MediaType.valueOf(userDto.getImageType())).body(img);
+        // return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
 
     // get all users only active for admin only
