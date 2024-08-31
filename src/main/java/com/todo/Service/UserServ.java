@@ -27,7 +27,7 @@ public interface UserServ {
     void uploadImage(MultipartFile file);
 
     // register user 
-
+    
     // login user
 	
 	
