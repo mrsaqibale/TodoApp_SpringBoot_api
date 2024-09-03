@@ -1,5 +1,7 @@
 package com.todo.Service;
 
+import java.util.List;
+
 import com.todo.dto.TodoDto;
 
 public interface TodoServ {
@@ -9,9 +11,10 @@ public interface TodoServ {
 
 
     // update todo
-    TodoDto updateDto(TodoDto todoDto);
+    TodoDto updateDto(TodoDto t);
     // delete todo of user
     // get all todos of user
+    List<TodoDto> getalltodo();
     // get todo by id of user
     // get complete todo
     // get on priority todo 
