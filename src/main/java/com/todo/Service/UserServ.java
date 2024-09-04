@@ -27,8 +27,10 @@ public interface UserServ {
     void uploadImage(MultipartFile file);
 
     // register user 
+    String registerUser(UserLog u);
     
     // login user
+    // this is the user of the main in the s
 	
 	
 }
