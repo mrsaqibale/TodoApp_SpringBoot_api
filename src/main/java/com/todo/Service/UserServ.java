@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.todo.dto.UserDto;
+import com.todo.dto.UserLog;
 import com.todo.entites.User;
 
 public interface UserServ {
@@ -27,9 +28,11 @@ public interface UserServ {
     void uploadImage(MultipartFile file);
 
     // register user 
-    String registerUser(UserLog u);
+    void registerUser(UserLog userLog);
     
     // login user
+    String login(UserLog userLog);
+
     // this is the user of the main in the s
 	
 	
