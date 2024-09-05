@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.todo.Service.UserServ;
 import com.todo.dto.UserDto;
+import com.todo.dto.UserLog;
 import com.todo.entites.User;
 import com.todo.exceptions.ResourceNotFoundException;
 import com.todo.repository.UserRepo;
@@ -91,6 +92,18 @@ public class UserServImp implements UserServ{
         } catch (Exception e) {
             throw new ResourceNotFoundException(null, null);
         }
+    }
+
+    @Override
+    public void registerUser(UserLog userLog) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'registerUser'");
+    }
+
+    @Override
+    public String login(UserLog userLog) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'login'");
     }
 
 }
