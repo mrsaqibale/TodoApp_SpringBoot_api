@@ -6,6 +6,9 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder.BCryptVersion;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -96,7 +99,16 @@ public class UserServImp implements UserServ{
 
     @Override
     public void registerUser(UserLog userLog) {
-        
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(BCryptVersion.$2A,12);
+        User user = modelMapper.map(userLog, User.class);
+        user.setPassword(passwordEncoder.encode(userLog.getPassword()));
+        user.setCreatedAt(LocalDateTime.now());
+        user.setUpdatedAt(LocalDateTime.now());
+        user.setRole("USER");
+        user.setDeleted(false);
+        user.setLocked(false);
+        user.setLoginCount(0);
+        this.userRepo.save(user);
         throw new UnsupportedOperationException("Unimplemented method 'registerUser'");
     }
 
