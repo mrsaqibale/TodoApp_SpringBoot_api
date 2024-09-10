@@ -96,7 +96,7 @@ public class UserServImp implements UserServ{
 
     @Override
     public void registerUser(UserLog userLog) {
-        // TODO Auto-generated method stub
+        
         throw new UnsupportedOperationException("Unimplemented method 'registerUser'");
     }
 
