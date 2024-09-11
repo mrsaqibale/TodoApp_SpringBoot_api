@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.todo.Service.UserServ;
 import com.todo.dto.UserLog;
-import com.todo.entites.User;
 
 @RestController
 @RequestMapping("/auth")
