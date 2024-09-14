@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder.BCryptVersion;
@@ -28,6 +30,9 @@ public class UserServImp implements UserServ{
 
     @Autowired
     private UserRepo userRepo;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
 
     // create user for the admin only with role of admin
@@ -115,7 +120,11 @@ public class UserServImp implements UserServ{
 
     @Override
     public String login(UserLog userLog) {
-        return "";
+        Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userLog.getUsername(), userLog.getPassword()));
+        if (auth.isAuthenticated()) {
+            return "";
+        }
+        return "fail";
         
     }
 
