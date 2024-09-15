@@ -20,6 +20,7 @@ import com.todo.dto.UserDto;
 import com.todo.dto.UserLog;
 import com.todo.entites.User;
 import com.todo.exceptions.ResourceNotFoundException;
+import com.todo.jwt.JwtService;
 import com.todo.repository.UserRepo;
 
 @Service
@@ -33,6 +34,9 @@ public class UserServImp implements UserServ{
 
     @Autowired
     private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private JwtService jwtService;
 
 
     // create user for the admin only with role of admin
@@ -122,9 +126,12 @@ public class UserServImp implements UserServ{
     public String login(UserLog userLog) {
         Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userLog.getUsername(), userLog.getPassword()));
         if (auth.isAuthenticated()) {
-            return "";
-        }
+            System.out.println("run true");
+            return jwtService.genrateToken(userLog.getUsername()) ;
+        }else{
+            System.out.println("run true");
         return "fail";
+        }
         
     }
 

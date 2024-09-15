@@ -21,4 +21,9 @@ public class UserLogCont {
         this.userServ.registerUser(user);
         return user;
     }
+    @PostMapping("/login")
+    public String login(@RequestBody UserLog user) {
+        return this.userServ.login(user);
+        
+    }
 }
