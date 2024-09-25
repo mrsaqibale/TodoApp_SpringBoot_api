@@ -129,8 +129,7 @@ public class UserServImp implements UserServ{
             System.out.println("run true");
             return jwtService.genrateToken(userLog.getUsername()) ;
         }else{
-            System.out.println("run true");
-        return "fail";
+            return "fail";
         }
         
     }
